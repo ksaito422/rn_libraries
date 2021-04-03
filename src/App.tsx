@@ -6,14 +6,23 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
+import React, {useEffect} from 'react';
+import {SafeAreaView, StatusBar, Text} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 export const App = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 3000);
+  });
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>{/* component... */}</SafeAreaView>
+      <SafeAreaView>
+        <Text>aaa</Text>
+      </SafeAreaView>
     </>
   );
 };
