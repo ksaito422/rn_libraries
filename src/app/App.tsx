@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {RootNavigator} from './Navigation';
+import { RootNavigator } from './Navigation';
 
 export const App = () => {
   useEffect(() => {

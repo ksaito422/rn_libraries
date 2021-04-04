@@ -1,7 +1,7 @@
-import {Dimensions, StyleSheet} from 'react-native';
-import {RFPercentage} from 'react-native-responsive-fontsize';
+import { Dimensions, StyleSheet } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const wp = (percentage: number) => width * percentage;
 const hp = (percentage: number) => height * percentage;
 
