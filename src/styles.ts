@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { Colors } from 'react-native-ui-lib';
 
 const { width, height } = Dimensions.get('window');
 const wp = (percentage: number) => width * percentage;
@@ -35,7 +36,10 @@ export const SHADOW = {
 };
 
 export const COLOR = {
-  gray: '#555',
+  initial: Colors.yellow30,
+  secondary: Colors.violet30,
+  tertiary: Colors.grey50,
+  error: Colors.red10,
 };
 
 export const FLEX = StyleSheet.create({

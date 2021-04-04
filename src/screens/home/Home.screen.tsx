@@ -1,6 +1,9 @@
 import React from 'react';
-import { SafeAreaView, Text, Button } from 'react-native';
+import { SafeAreaView, View, Text, Button } from 'react-native';
 import { useNav } from 'src/hooks/useNav';
+import { COLOR, FONT, FLEX } from 'src/styles';
+import { Spacing } from 'src/components/Spacing';
+import { Avatar } from 'react-native-ui-lib';
 
 export const HomeScreen = () => {
   const { navigate } = useNav();
@@ -8,9 +11,10 @@ export const HomeScreen = () => {
   return (
     <>
       <SafeAreaView>
-        <Text>Home</Text>
-        <Button title="マイページへ" onPress={() => navigate('Profile')} />
-        <Button title="イベント一覧へ" onPress={() => navigate('EventList')} />
+        <View style={FLEX.row}>
+          <Text style={FONT.medium}>ホーム</Text>
+          <Avatar backgroundColor={COLOR.tertiary} label="A" onPress={() => navigate('Profile')} />
+        </View>
       </SafeAreaView>
     </>
   );

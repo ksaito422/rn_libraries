@@ -9,7 +9,7 @@ export const EntryEventListScreen = () => {
     <>
       <SafeAreaView>
         <Text>参加イベント一覧</Text>
-        <Button title="イベント一覧" onPress={() => navigate('EventList')} />
+        <Button title="イベント一覧" onPress={() => navigate('Tab')} />
       </SafeAreaView>
     </>
   );
