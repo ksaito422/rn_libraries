@@ -23,7 +23,8 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.0.0",
     "react-native-splash-screen": "^3.2.0",
-    "react-native-ui-lib": "^5.22.0"
+    "react-native-ui-lib": "^5.22.0",
+    "react-native-vector-icons": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -32,6 +33,7 @@
     "@types/jest": "^26.0.22",
     "@types/react": "^17.0.3",
     "@types/react-native": "^0.64.2",
+    "@types/react-native-vector-icons": "^6.4.6",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^25.1.0",
     "eslint": "^6.5.1",
