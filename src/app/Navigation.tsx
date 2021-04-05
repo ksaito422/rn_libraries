@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp, TransitionPresets } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -39,7 +40,13 @@ const EventStack = () => (
       cardOverlayEnabled: true,
       ...TransitionPresets.ModalPresentationIOS,
     }}>
-    <Stack.Screen name="EventList" component={EventListScreen} options={{ title: 'イベント' }} />
+    <Stack.Screen
+      name="EventList"
+      component={EventListScreen}
+      options={{
+        title: 'イベント',
+      }}
+    />
     <Stack.Screen name="EventDetail" component={EventDetailScreen} options={{ title: 'イベント詳細' }} />
   </Stack.Navigator>
 );
@@ -51,7 +58,16 @@ export const RootNavigator = () => (
         headerShown: false,
       }}>
       <Stack.Screen name="Tab" component={TabScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          title: 'プロフィール',
+          headerBackTitleVisible: false,
+          headerRight: () => <Button onPress={() => navigation.navigate('Home')} title="info" />,
+        })}
+      />
       <Stack.Screen name="EntryEventList" component={EntryEventListScreen} />
     </Stack.Navigator>
   </NavigationContainer>

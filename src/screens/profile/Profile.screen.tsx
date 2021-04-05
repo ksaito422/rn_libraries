@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { useNav } from 'src/hooks/useNav';
 
 export const ProfileScreen = () => {
@@ -7,10 +7,10 @@ export const ProfileScreen = () => {
 
   return (
     <>
-      <SafeAreaView>
+      <View>
         <Text>Profile</Text>
         <Button title="ホームへ" onPress={() => navigate('Home')} />
-      </SafeAreaView>
+      </View>
     </>
   );
 };
