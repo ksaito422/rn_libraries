@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, StackNavigationProp, TransitionPresets } from '@react-navigation/stack';
@@ -9,6 +9,7 @@ import { ProfileScreen } from 'src/screens/profile/Profile.screen';
 import { EventListScreen } from 'src/screens/event/EventList.screen';
 import { EventDetailScreen } from 'src/screens/event/EventDetail.screen';
 import { EntryEventListScreen } from 'src/screens/event/EntryEventList.screen';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 export type NavParamOptions = {
   Tab: undefined;
@@ -24,6 +25,7 @@ export type RootScreenNavigationProp = StackNavigationProp<NavParamOptions>;
 
 const Stack = createStackNavigator<NavParamOptions>();
 const Tab = createBottomTabNavigator<NavParamOptions>();
+const Top = createMaterialTopTabNavigator<NavParamOptions>();
 
 const TabScreen = () => (
   <Tab.Navigator
@@ -48,13 +50,43 @@ const TabScreen = () => (
     />
     <Tab.Screen
       name="Event"
-      component={EventStack}
+      component={TopScreen}
       options={{
         tabBarLabel: 'Setting',
         tabBarIcon: ({ color }) => <Icon name="settings-outline" size={30} color="white" />,
       }}
     />
   </Tab.Navigator>
+);
+
+const TopScreen = () => (
+  <Top.Navigator
+    screenOptions={{ title: 'true', tabBarStyle: { backgroundColor: '#f0f0f0' } }}
+    style={{
+      marginTop: Platform.select({
+        ios: 50,
+        android: 0,
+      }),
+    }}>
+    <Top.Screen
+      name="EventList"
+      component={EventListScreen}
+      options={() => ({
+        headerShown: true,
+        tabBarLabel: 'プロフィール',
+        headerBackTitleVisible: false,
+      })}
+    />
+    <Top.Screen
+      name="EventDetail"
+      component={EventDetailScreen}
+      options={() => ({
+        headerShown: true,
+        tabBarLabel: 'プロフィール',
+        headerBackTitleVisible: false,
+      })}
+    />
+  </Top.Navigator>
 );
 
 const EventStack = () => (
@@ -94,7 +126,7 @@ export const RootNavigator = () => (
           headerRight: () => <Button onPress={() => navigation.navigate('Home')} title="info" />,
         })}
       />
-      <Stack.Screen name="EntryEventList" component={EntryEventListScreen} />
+      <Stack.Screen name="EntryEventList" component={TopScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
