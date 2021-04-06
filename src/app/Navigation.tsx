@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, StackNavigationProp, TransitionPresets } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen } from 'src/screens/home/Home.screen';
@@ -25,9 +26,34 @@ const Stack = createStackNavigator<NavParamOptions>();
 const Tab = createBottomTabNavigator<NavParamOptions>();
 
 const TabScreen = () => (
-  <Tab.Navigator screenOptions={{ headerShown: false }}>
-    <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Event" component={EventStack} />
+  <Tab.Navigator
+    screenOptions={{
+      headerShown: false,
+      tabBarActiveTintColor: 'tomato',
+      tabBarInactiveTintColor: 'white',
+      tabBarIconStyle: {
+        backgroundColor: 'white',
+      },
+      tabBarStyle: {
+        backgroundColor: 'black',
+      },
+    }}>
+    <Tab.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ color }) => <Icon name="home-outline" size={30} color="white" />,
+      }}
+    />
+    <Tab.Screen
+      name="Event"
+      component={EventStack}
+      options={{
+        tabBarLabel: 'Setting',
+        tabBarIcon: ({ color }) => <Icon name="settings-outline" size={30} color="white" />,
+      }}
+    />
   </Tab.Navigator>
 );
 
