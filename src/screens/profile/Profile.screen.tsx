@@ -1,38 +1,44 @@
-import React, { useState } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button } from 'react-native';
 
-import { useNav } from 'src/hooks/useNav';
+import { FLEX } from 'src/styles';
 
 import { CustomInput } from 'src/components/CustomInput';
 import { CustomView } from 'src/components/CustomView';
-import { Spacing } from 'src/components/Spacing';
 
-export const ProfileScreen = () => {
-  const { navigate } = useNav();
-
+export const ProfileScreen = ({ navigation }: any) => {
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
   const [tel, setTel] = useState('');
+  const [is_edit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button onPress={() => setIsEdit(!is_edit)} title={is_edit ? '取り消す' : '編集'} />,
+    });
+  });
 
   return (
-    <CustomView>
-      <View>
-        <Text>氏名</Text>
-        <CustomInput value={name} editable onChangeText={(e) => setName(e)} placeholder="氏名" />
+    <CustomView style={FLEX.flex}>
+      <View style={[FLEX.flex]}>
+        <View style={[FLEX.flex, { justifyContent: 'space-evenly' }]}>
+          <Text>氏名</Text>
+          <CustomInput value={name} editable={is_edit} onChangeText={(e) => setName(e)} placeholder="氏名" />
+        </View>
 
-        <Spacing />
+        <View style={[FLEX.flex, { justifyContent: 'space-evenly' }]}>
+          <Text>メールアドレス</Text>
+          <CustomInput value={mail} editable={is_edit} onChangeText={(e) => setMail(e)} placeholder="メールアドレス" />
+        </View>
 
-        <Text>メールアドレス</Text>
-        <CustomInput value={mail} editable onChangeText={(e) => setMail(e)} placeholder="メールアドレス" />
-
-        <Spacing />
-
-        <Text>電話番号</Text>
-        <CustomInput value={tel} editable onChangeText={(e) => setTel(e)} placeholder="電話番号" />
-
-        <Spacing />
+        <View style={[FLEX.flex, { justifyContent: 'space-evenly' }]}>
+          <Text>電話番号</Text>
+          <CustomInput value={tel} editable={is_edit} onChangeText={(e) => setTel(e)} placeholder="電話番号" />
+        </View>
       </View>
-      <Button title="登録" onPress={() => console.log(name)} />
+      <View style={[FLEX.flex, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
+        <Button title="登録" onPress={() => setIsEdit(false)} />
+      </View>
     </CustomView>
   );
 };

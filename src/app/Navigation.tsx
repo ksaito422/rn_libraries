@@ -119,11 +119,10 @@ export const RootNavigator = () => (
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={({ navigation }) => ({
+        options={() => ({
           headerShown: true,
           title: 'プロフィール',
           headerBackTitleVisible: false,
-          headerRight: () => <Button onPress={() => navigation.navigate('Home')} title="info" />,
         })}
       />
       <Stack.Screen name="EntryEventList" component={TopScreen} />

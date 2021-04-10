@@ -10,7 +10,13 @@ type Props = {
 };
 
 export const CustomInput = ({ value, editable, placeholder, onChangeText }: Props) => (
-  <TextInput value={value} editable={editable} onChangeText={onChangeText} placeholder={placeholder} />
+  <TextInput
+    value={value}
+    editable={editable}
+    onChangeText={onChangeText}
+    placeholder={placeholder}
+    style={{ height: 30, borderStyle: 'solid', borderColor: '#c9c9c9', borderWidth: 1, borderRadius: 5 }}
+  />
 );
 
 const styles = StyleSheet.create({
