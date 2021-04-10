@@ -52,8 +52,8 @@ const TabScreen = () => (
       name="Event"
       component={TopScreen}
       options={{
-        tabBarLabel: 'Setting',
-        tabBarIcon: ({ color }) => <Icon name="settings-outline" size={30} color="white" />,
+        tabBarLabel: 'Event',
+        tabBarIcon: ({ color }) => <Icon name="list-outline" size={30} color="white" />,
       }}
     />
   </Tab.Navigator>
@@ -73,40 +73,20 @@ const TopScreen = () => (
       component={EventListScreen}
       options={() => ({
         headerShown: true,
-        tabBarLabel: 'プロフィール',
+        tabBarLabel: 'イベント一覧',
         headerBackTitleVisible: false,
       })}
     />
     <Top.Screen
-      name="EventDetail"
-      component={EventDetailScreen}
+      name="EntryEventList"
+      component={EntryEventListScreen}
       options={() => ({
         headerShown: true,
-        tabBarLabel: 'プロフィール',
+        tabBarLabel: '参加イベント',
         headerBackTitleVisible: false,
       })}
     />
   </Top.Navigator>
-);
-
-const EventStack = () => (
-  <Stack.Navigator
-    mode="modal"
-    screenOptions={{
-      headerShown: true,
-      gestureEnabled: true,
-      cardOverlayEnabled: true,
-      ...TransitionPresets.ModalPresentationIOS,
-    }}>
-    <Stack.Screen
-      name="EventList"
-      component={EventListScreen}
-      options={{
-        title: 'イベント',
-      }}
-    />
-    <Stack.Screen name="EventDetail" component={EventDetailScreen} options={{ title: 'イベント詳細' }} />
-  </Stack.Navigator>
 );
 
 export const RootNavigator = () => (
@@ -125,7 +105,8 @@ export const RootNavigator = () => (
           headerBackTitleVisible: false,
         })}
       />
-      <Stack.Screen name="EntryEventList" component={TopScreen} />
+      <Stack.Screen name="EventList" component={TopScreen} />
+      <Stack.Screen name="EventDetail" component={EventDetailScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
