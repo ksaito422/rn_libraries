@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
+
+import { Button } from 'react-native-ui-lib';
 
 import { FLEX } from 'src/styles';
+
+import { useDispatch } from 'react-redux';
+import { logout } from 'src/reducers/authSlice';
 
 import { CustomInput } from 'src/components/CustomInput';
 import { CustomView } from 'src/components/CustomView';
 
 export const ProfileScreen = ({ navigation }: any) => {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
   const [tel, setTel] = useState('');
@@ -14,7 +20,7 @@ export const ProfileScreen = ({ navigation }: any) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <Button onPress={() => setIsEdit(!is_edit)} title={is_edit ? '取り消す' : '編集'} />,
+      headerRight: () => <Button onPress={() => setIsEdit(!is_edit)} label={is_edit ? '取り消す' : '編集'} />,
     });
   });
 
@@ -37,7 +43,10 @@ export const ProfileScreen = ({ navigation }: any) => {
         </View>
       </View>
       <View style={[FLEX.flex, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
-        <Button title="登録" onPress={() => setIsEdit(false)} />
+        <Button label="登録" onPress={() => setIsEdit(false)} />
+      </View>
+      <View style={[FLEX.flex, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
+        <Button label="ログアウト" onPress={() => dispatch(logout())} />
       </View>
     </CustomView>
   );

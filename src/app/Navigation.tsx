@@ -1,9 +1,14 @@
 import React from 'react';
-import { Button, Platform } from 'react-native';
+import { Platform } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator, StackNavigationProp, TransitionPresets } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import { useSelector } from 'react-redux';
+
+import { LoginScreen } from 'src/screens/login/Login.screen';
 import { HomeScreen } from 'src/screens/home/Home.screen';
 import { ProfileScreen } from 'src/screens/profile/Profile.screen';
 import { EventListScreen } from 'src/screens/event/EventList.screen';
@@ -12,6 +17,7 @@ import { EntryEventListScreen } from 'src/screens/event/EntryEventList.screen';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 export type NavParamOptions = {
+  Login: undefined;
   Tab: undefined;
   Home: undefined;
   Profile: undefined;
@@ -89,24 +95,34 @@ const TopScreen = () => (
   </Top.Navigator>
 );
 
-export const RootNavigator = () => (
-  <NavigationContainer>
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name="Tab" component={TabScreen} />
-      <Stack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={() => ({
-          headerShown: true,
-          title: 'プロフィール',
-          headerBackTitleVisible: false,
-        })}
-      />
-      <Stack.Screen name="EventList" component={TopScreen} />
-      <Stack.Screen name="EventDetail" component={EventDetailScreen} />
-    </Stack.Navigator>
-  </NavigationContainer>
-);
+export const RootNavigator = () => {
+  const isAuth = useSelector((state) => state.isLoggerdIn.isAuth);
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        {!isAuth ? (
+          <Stack.Screen name="Login" component={LoginScreen} />
+        ) : (
+          <>
+            <Stack.Screen name="Tab" component={TabScreen} />
+            <Stack.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={() => ({
+                headerShown: true,
+                title: 'プロフィール',
+                headerBackTitleVisible: false,
+              })}
+            />
+            <Stack.Screen name="EventList" component={TopScreen} />
+            <Stack.Screen name="EventDetail" component={EventDetailScreen} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
