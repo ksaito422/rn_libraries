@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { useSelector } from 'react-redux';
+import { RootState } from 'src/app/store';
 
 import { LoginScreen } from 'src/screens/login/Login.screen';
 import { HomeScreen } from 'src/screens/home/Home.screen';
@@ -96,7 +97,7 @@ const TopScreen = () => (
 );
 
 export const RootNavigator = () => {
-  const isAuth = useSelector((state) => state.isLoggerdIn.isAuth);
+  const isAuth = useSelector((state: RootState) => state.isLoggerdIn.isAuth);
 
   return (
     <NavigationContainer>
