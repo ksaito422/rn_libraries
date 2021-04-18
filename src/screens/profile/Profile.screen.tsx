@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 
+import { useNav } from 'src/hooks/useNav';
+import { useTodo } from 'src/hooks/useTodo';
 import { FLEX } from 'src/styles';
 
 import { CustomInput } from 'src/components/CustomInput';
 import { CustomView } from 'src/components/CustomView';
 
 export const ProfileScreen = ({ navigation }: any) => {
+  const { navigate } = useNav();
+
+  const { todo, isLoading, isError } = useTodo();
+
+  console.log(todo);
+
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
   const [tel, setTel] = useState('');
@@ -37,7 +45,12 @@ export const ProfileScreen = ({ navigation }: any) => {
         </View>
       </View>
       <View style={[FLEX.flex, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
-        <Button title="登録" onPress={() => setIsEdit(false)} />
+        <Button
+          title="登録"
+          onPress={() => {
+            setIsEdit(false), navigate('Home');
+          }}
+        />
       </View>
     </CustomView>
   );
