@@ -1,18 +1,25 @@
 import React from 'react';
 import { Button, Platform } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator, StackNavigationProp, TransitionPresets } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useRecoilValue } from 'recoil';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import { isSignedSelector } from 'src/recoil/isSigned';
+
+import { SignInScreen } from 'src/screens/auth/SignIn.screen';
 import { HomeScreen } from 'src/screens/home/Home.screen';
 import { ProfileScreen } from 'src/screens/profile/Profile.screen';
 import { EventListScreen } from 'src/screens/event/EventList.screen';
 import { EventDetailScreen } from 'src/screens/event/EventDetail.screen';
 import { EntryEventListScreen } from 'src/screens/event/EntryEventList.screen';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 export type NavParamOptions = {
   Tab: undefined;
+  SignIn: undefined;
   Home: undefined;
   Profile: undefined;
   Event: undefined;
@@ -89,24 +96,34 @@ const TopScreen = () => (
   </Top.Navigator>
 );
 
-export const RootNavigator = () => (
-  <NavigationContainer>
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name="Tab" component={TabScreen} />
-      <Stack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={() => ({
-          headerShown: true,
-          title: 'プロフィール',
-          headerBackTitleVisible: false,
-        })}
-      />
-      <Stack.Screen name="EventList" component={TopScreen} />
-      <Stack.Screen name="EventDetail" component={EventDetailScreen} />
-    </Stack.Navigator>
-  </NavigationContainer>
-);
+export const RootNavigator = () => {
+  const isSignedIn = useRecoilValue(isSignedSelector);
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        {!isSignedIn ? (
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+        ) : (
+          <>
+            <Stack.Screen name="Tab" component={TabScreen} />
+            <Stack.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={() => ({
+                headerShown: true,
+                title: 'プロフィール',
+                headerBackTitleVisible: false,
+              })}
+            />
+            <Stack.Screen name="EventList" component={TopScreen} />
+            <Stack.Screen name="EventDetail" component={EventDetailScreen} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};

@@ -1,6 +1,8 @@
-import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
+
 import SplashScreen from 'react-native-splash-screen';
+import { RecoilRoot } from 'recoil';
+
 import { RootNavigator } from './Navigation';
 
 export const App = () => {
@@ -10,5 +12,9 @@ export const App = () => {
     }, 3000);
   });
 
-  return <RootNavigator />;
+  return (
+    <RecoilRoot>
+      <RootNavigator />
+    </RecoilRoot>
+  );
 };
